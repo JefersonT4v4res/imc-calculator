@@ -5,7 +5,9 @@ public class getFileCSV {
     
     public static void main(String[] args) {
 
-         try {
+        //Reader reader = Files.newBufferedReader(Paths.get(""));
+
+        try {
             File csvFile = new File("dao/DATASET.csv");
             Scanner reader = new Scanner(csvFile);
             List<peopleData> p = new ArrayList<peopleData>(); 
@@ -23,23 +25,35 @@ public class getFileCSV {
                 String surname = fileDatas[1];
                 float weight = Float.parseFloat(fileDatas[2].replace(",", "."));
                 float height = Float.parseFloat(fileDatas[3].replace(",", "."));
+                float imc = (weight / (height*height));
+                String message;
+                
+                if(imc < 18.5) {
+                    message = "Abaixo do peso ideal";
+                }else if(imc >= 18.5 && imc <= 24.9){
+                    message = "No peso ideal";
+                }else if(imc >= 25 && imc <= 29.9){
+                    message = "Acima do peso ideal";
+                }else if(imc >= 30 && imc <= 34.9){
+                    message = "Obesidade I";
+                }else if(imc >= 35 && imc <= 39.9){
+                    message = "Obesidade II";
+                }else {
+                    message = "Obesidade III";
+                }
 
-                System.out.println("Nome: " + fileDatas[0]);
-                System.out.println("Sobrenome: " + fileDatas[1]);
-                System.out.println("Peso: " + fileDatas[2]);
-                System.out.println("Altura: " + fileDatas[3]);
-                System.out.println();
-
-               peopleData person = new peopleData(firstName, surname, weight, height);
+               peopleData person = new peopleData(firstName, surname, weight, height, imc, message);
                p.add(person);
             }
             reader.close();
 
+            System.out.println(p.size());
+
             for (int i = 0; i < p.size(); i++) {
-                System.out.println("Nome: " + ((peopleData) p).getFirstName());
-                System.out.println("Sobrenome: " + ((peopleData) p).getSurname());
+                System.out.println("Nome: " + ((peopleData) p).getFirstName() + " " + ((peopleData) p).getSurname());
                 System.out.println("Peso: " + ((peopleData) p).getWeight());
                 System.out.println("Altura: " + ((peopleData) p).getHeight());
+                System.out.println("IMC: " + ((peopleData) p).getImc() + " (" +  ((peopleData) p).getmessage() + ")");
                 System.out.println();
             }
 
@@ -49,6 +63,5 @@ public class getFileCSV {
         }
 
     }
-    
 
-}       
+}               
