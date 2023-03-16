@@ -2,10 +2,10 @@ public class peopleData {
     
         private String firstName;
         private String surname;
-        private Float weight;
-        private Float height;  
+        private float weight;
+        private float height;  
         
-        public peopleData(String firstName, String surname, Float weight, Float height) {
+        public peopleData(String firstName, String  surname, float weight, float height) {
             this.firstName = firstName;
             this.surname = surname;
             this.weight = weight;
@@ -20,11 +20,11 @@ public class peopleData {
             return surname;
         }
 
-        public Float getWeight() {
+        public float getWeight() {
             return weight;
         }
 
-        public Float getHeight() {
+        public float getHeight() {
             return height;
         }
     
