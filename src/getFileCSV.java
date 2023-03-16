@@ -11,7 +11,7 @@ public class getFileCSV {
             File csvFile = new File("dao/DATASET.csv");
             Scanner reader = new Scanner(csvFile);
             List<peopleData> p = new ArrayList<peopleData>(); 
-
+            int i = 0;
             // Pula a primeira linha do arquivo para ignorar título planilha
             if(reader.hasNextLine()) {
             reader.nextLine();
@@ -41,21 +41,23 @@ public class getFileCSV {
                 }else {
                     message = "Obesidade III";
                 }
+                
+                
+                System.out.println(i + "º - " + firstName.toUpperCase() + " " + surname.toUpperCase() + "  " + String.format("%.2f", imc) + " (" +  message + ")");
+                System.out.printf("\n\n");
 
-               peopleData person = new peopleData(firstName, surname, weight, height, imc, message);
-               p.add(person);
+                try {
+                    FileWriter fileWriter = new FileWriter("JEFERSONLUCASTAVARESQUEIROZDASILVA.txt", true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                    bufferedWriter.write(i + " - " + firstName.toUpperCase() + " " + surname.toUpperCase() + "  " + String.format("%.2f", imc) + " (" +  message + ")\n\n");
+                    bufferedWriter.close();
+                } catch(IOException ex) {
+                    System.out.println("Erro ao escrever'" + ex.getMessage() + "'");
+                }
+                
+                i++;
             }
             reader.close();
-
-            System.out.println(p.size());
-
-            for (int i = 0; i < p.size(); i++) {
-                System.out.println("Nome: " + ((peopleData) p).getFirstName() + " " + ((peopleData) p).getSurname());
-                System.out.println("Peso: " + ((peopleData) p).getWeight());
-                System.out.println("Altura: " + ((peopleData) p).getHeight());
-                System.out.println("IMC: " + ((peopleData) p).getImc() + " (" +  ((peopleData) p).getmessage() + ")");
-                System.out.println();
-            }
 
          } catch (FileNotFoundException e) {
             System.out.println("Erro ao abrir o arquivo.");
@@ -64,4 +66,4 @@ public class getFileCSV {
 
     }
 
-}               
+}        
